@@ -24,7 +24,7 @@ class UserService
 
     function actionUser($parameters)
     {
-      
+
         $user = new User;
         if ($parameters['id']) { //if EDIT user
             $user = $this->entityManager->getRepository(User::class)->findOneBy(['id' => $parameters['id']]);
@@ -35,7 +35,7 @@ class UserService
         $user->setLastname($parameters['lastName']);
         $user->setPassword($this->passwordHasher->hashPassword(
             $user,
-            'dexter1310'
+            $parameters['pass']
         ));
         $user->setRoles(User::R_USER);
 
@@ -43,20 +43,20 @@ class UserService
         $this->entityManager->flush();
     }
 
-    function addTokenUser($token,$user){
+    function addTokenUser($token, $user)
+    {
         $user->setToken($token);
         $this->entityManager->persist($user);
         $this->entityManager->flush();
     }
 
-    function deleteUser($user){
-        
+    function deleteUser($user)
+    {
+
         $this->entityManager->remove($user);
         $this->entityManager->flush();
     }
-
-
-
+    
 
     function findUser($user)
     {

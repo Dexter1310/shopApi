@@ -38,7 +38,7 @@ class SecurityController extends AbstractController
         ]);
         if (!$user || !$passwordHasher->hashPassword($user, $parameters['pass'])) {
             return $this->json([
-                'message' => 'email or password is wrong.',
+                'message' => 'error',
             ]);
         }
         $payload = [
@@ -50,6 +50,7 @@ class SecurityController extends AbstractController
         $userService->addTokenUser($token, $user);
 
         return $this->json([
+            'user'=>$user,
             'message' => 'success!',
             'token' => sprintf('Bearer %s', $token),
         ]);
