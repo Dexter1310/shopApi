@@ -30,7 +30,7 @@ class UserService
             $user = $this->entityManager->getRepository(User::class)->findOneBy(['id' => $parameters['id']]);
         }
 
-        $user->setEmail($parameters['email']);
+        $user->setEmail($parameters['mail']);
         $user->setName($parameters['nom']);
         $user->setLastname($parameters['lastName']);
         $user->setPassword($this->passwordHasher->hashPassword(
